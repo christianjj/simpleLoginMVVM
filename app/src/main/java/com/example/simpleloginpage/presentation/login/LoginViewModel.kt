@@ -3,6 +3,7 @@ package com.example.simpleloginpage.presentation.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.simpleloginpage.core.Resource
+import com.example.simpleloginpage.data.model.LoginRequest
 import com.example.simpleloginpage.domain.usecases.LoginUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,9 +17,9 @@ class LoginViewModel(
     private val _loginState = MutableStateFlow(LoginState())
     val loginState: StateFlow<LoginState> = _loginState.asStateFlow()
 
-    fun login(username: String, password: String) {
+    fun login(loginRequest: LoginRequest) {
         viewModelScope.launch {
-            loginUseCase(username, password)
+            loginUseCase(loginRequest)
                 .collect { resource ->
                     when (resource) {
                         is Resource.Loading -> {

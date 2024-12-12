@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
+import com.example.simpleloginpage.data.model.LoginRequest
 import com.example.simpleloginpage.databinding.ActivityLoginBinding
 import com.example.simpleloginpage.presentation.welcome.WelcomeActivity
 import kotlinx.coroutines.launch
@@ -28,7 +29,16 @@ class LoginActivity : AppCompatActivity() {
     private fun onClickListener(){
         binding.apply {
             buttonLogin.setOnClickListener {
-                loginViewModel.login(edittextUsername.text.toString(), edittextPassword.text.toString())
+                if (edittextUsername.text.toString().isNotBlank() && edittextPassword.text.toString()
+                        .isNotBlank()
+                ) {
+                    loginViewModel.login(
+                        LoginRequest(
+                            edittextUsername.text.toString(),
+                            edittextPassword.text.toString()
+                        )
+                    )
+                }
             }
         }
     }
